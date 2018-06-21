@@ -119,3 +119,43 @@ public:
         }
     }
 };
+int main() {
+    Solution* s = new Solution();
+    vector<int> ts = {3, 2, 1};
+    s->permuteUnique(ts);
+}
+
+31. Next Permutation
+
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        #vector<int> tv(nums);
+        bool flag = true;
+        for (int i = nums.size() - 1; i > 0; --i) {
+            int j = i - 1;
+            if (nums[j]  < nums[i]) {
+                flag = false;
+                int k = nums.size() - 1;
+                while (nums[k] <= nums[j] ) k--;
+                cout << "i:" << i << ", j:" << j << ", k:" << k << endl;
+                int t = nums[j];
+                nums[j] = nums[k];
+                nums[k] = t;
+                #reverse
+                int m = j + 1;
+                k = nums.size() - 1;
+                while(m < k) {
+                    int t = nums[m];
+                    nums[m] = nums[k];
+                    nums[k] = t;
+                    k--;
+                    m++;
+                }
+                return;
+            }
+        }
+        if (flag)
+            sort(nums.begin(), nums.end());
+    }
+};
