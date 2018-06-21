@@ -1,0 +1,78 @@
+
+46. Permutations
+
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> vs;
+        sort(nums.begin(), nums.end());
+        for (int i = 0; i < nums.size(); ++i) {
+            cout << nums[i] << "\t";
+        }
+        cout << " nums" << endl;
+        vs.push_back(nums);
+        vector<int> nn = np(nums);
+        #cout << "nn size:" << nn.size() << endl;
+        while (nn.size() > 0) {
+            vs.push_back(nn);
+            nn = np(nn);
+        }
+        return vs;
+    }
+    
+    vector<int> np(vector<int> &nums) {
+        /*for (int i = 0; i < nums.size(); ++i) {
+            cout << nums[i] << "\t";
+        }
+        cout << " nums" << endl;*/
+        int i = -1;
+        int j = -1;
+        vector<int> nv(nums);
+        
+        for (i = nv.size() - 1; i > 0; --i) {
+            int j = i - 1;
+                if (nv[j] < nv[i]){
+                    int k = nv.size() - 1;
+                    while (nv[k] < nv[j] && k >= 0) {
+                        k = k - 1;
+                    }
+                    #cout << "i:" << i << ", j:" << j << ", k:" << k << endl;
+                    int tmp = nv[j];
+                    nv[j] = nv[k];
+                    nv[k] = tmp;
+                    #reverse to i
+                    k = i;
+                    
+                    int n = nv.size() - 1;
+                    #cout << "n:" << n <<  ", k:" << k  << endl;
+                    while (n > k) {
+                        int tmp = nv[n];
+                        nv[n] = nv[k];
+                        nv[k] = tmp;
+                        k++;
+                        n--;
+                    }
+                    /*
+                    for (int i = 0; i < nv.size(); ++i) {
+                        cout << nv[i] << "\t";
+                    }
+                    cout << "nv" << endl;
+                    */
+                    return nv;
+                }
+            
+        }
+        #cout << "i:" << i << ", j:" << j << endl;
+        if (i < 0 || j < 0) {
+            #cout << "nv is null" << endl;
+            nv.clear();
+            return nv;
+        }
+        /*
+        for (int i = 0; i < nv.size(); ++i) {
+            cout << nv[i] << "\t";
+        }*/
+        cout << endl;
+        return nv;
+    }
+};
