@@ -76,3 +76,46 @@ public:
         return nv;
     }
 };
+
+47. Permutations II
+
+class Solution {
+public:
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        vector<vector<int>> vs;
+        #vs.push_back(nums);
+        perm(nums, 0, nums.size() - 1, vs);
+        return vs;
+    }
+    void perm(vector<int>& nums, int i, int j, vector<vector<int>>& vs) {
+        if (i == j) {
+            vector<int> tv(nums);
+            vs.push_back(tv);
+            /*
+            for (int i = 0; i < nums.size(); ++i) {
+                cout << nums[i] << "\t";
+            }
+            cout << "tv" << endl;
+            */
+            return;
+        }
+        set<int> s;
+        for (int k = i; k <= j; ++k) {
+            int t = nums[k];
+            #set<int>::iterator it = s.find(t);
+            if (s.find(t) != s.end()) {
+                cout << "continue t:" << t << endl;
+                continue;
+            } else {
+                s.insert(t);
+            }
+            nums[k] = nums[i];
+            nums[i] = t;
+            #cout << "k:" << k << ", j:" << j << endl;
+            perm(nums, i + 1, j, vs);
+            t = nums[k];
+            nums[k] = nums[i];
+            nums[i] = t;
+        }
+    }
+};
